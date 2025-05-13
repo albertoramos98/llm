@@ -1,0 +1,30 @@
+pmc_8881_RNm1: Pesquisa Mensal do Comércio (PMC) no Rio Grande do Norte - Volume de vendas por setor - Dados mensais
+pmc_8881_RNm12: PMC no RN - Volume de vendas acumulado nos últimos 12 meses
+pmc_8881_RNAcM1: PMC no RN - Variação percentual mensal das vendas por setor
+pmc_8881_RNAcM12: PMC no RN - Variação percentual acumulada das vendas em 12 meses
+
+pmc_8883_RNAtvM1: PMC Atividades Comerciais - RN - Dados mensais por atividade econômica
+pmc_8883_RNAtvM12: PMC Atividades Comerciais - RN - Acumulado 12 meses por atividade
+pmc_8883_RNAtvAcM1: PMC Atividades Comerciais - RN - Variação mensal por atividade
+pmc_8883_RNAtvAcM12: PMC Atividades Comerciais - RN - Variação 12 meses por atividade
+
+pms_8688_RNm1: Pesquisa Mensal de Serviços (PMS) no RN - Volume de serviços por setor - Mensal
+pms_8688_RNm12: PMS no RN - Volume de serviços acumulado nos últimos 12 meses
+pms_8688_RNAcM1: PMS no RN - Variação percentual mensal do volume de serviços
+pms_8688_RNAcM12: PMS no RN - Variação percentual acumulada em 12 meses
+
+pms_8693_RNLocm1: PMS por localidade no RN - Volume de serviços - Mensal
+pms_8693_RNLocm12: PMS por localidade no RN - Volume de serviços - Acumulado 12 meses
+pms_8693_RNAcLocm1: PMS por localidade - Variação percentual mensal
+pms_8693_RNAcLocm12: PMS por localidade - Variação percentual acumulada 12 meses
+
+pnadc_4093_ocupacaoTri: PNAD Contínua - Taxa de ocupação no Brasil por trimestre - Indicadores de emprego formal e informal
+pnadc_4093_desocupacaoTri: PNAD Contínua - Taxa de desocupação no Brasil por trimestre
+pnadc_4093_informalidadeTri: PNAD Contínua - Informalidade no mercado de trabalho brasileiro - Trimestral
+
+transacaoCartao: Volume de transações de cartão por bandeira e função - Indicadores de consumo
+
+ipca_7060_brasil: IPCA - Índice Nacional de Preços ao Consumidor Amplo - Inflação geral no Brasil - Mensal
+ipca_7060_recife: IPCA - Índice de Preços ao Consumidor Amplo referente à cidade do Recife - Inflação local - Mensal
+ipca_7060_AcBrasil: IPCA - Brasil - Inflação acumulada no ano corrente
+ipca_7060_Ac12Brasil: IPCA - Brasil - Inflação acumulada nos últimos 12 meses

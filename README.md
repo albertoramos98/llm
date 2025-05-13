@@ -1,123 +1,166 @@
-# 🏦 BDI - Banco de Dados Intelligence
+# HuB‑IA – Assistente Inteligente para Dados Públicos da Fecomércio
 
-Este projeto utiliza o **GPT4All** para interpretar e responder perguntas sobre um banco de dados SQLite. Ele permite que os usuários consultem informações de forma natural, sem precisar escrever SQL manualmente.
-
----
-
-## **📌 Como configurar o projeto para rodar localmente em sua máquina**
-
-### **1️⃣ Clonar o repositório**
-```bash
-git clone https://github.com/ronierisonmaciel/llm.git
-cd llm
-```
+**HuB‑IA** é uma aplicação interativa desenvolvida com **Streamlit** e **LangChain**, capaz de transformar perguntas em linguagem natural em **consultas SQL** eficientes e interpretá-las com naturalidade. Os dados vêm de uma base SQLite contendo informações econômicas como IPCA, PMS, PMC e transações com cartões.
 
 ---
 
-## **📌 Instalando o GPT4All**
-O projeto utiliza o **GPT4All** para processar as consultas. Siga os passos abaixo para instalar corretamente:
+## Demonstração
+> Pergunte algo como:  
+> “Qual a inflação acumulada em Recife?”
 
-### **1️⃣ Baixar e instalar o GPT4All**
-- 🔗 Acesse: [https://gpt4all.io/index.html](https://gpt4all.io/index.html)
-- 📥 Baixe a versão correspondente ao seu sistema operacional (Windows, macOS ou Linux)
-- 🛠 Instale e abra o aplicativo para verificar se está funcionando corretamente
-
-### **2️⃣ Baixar o modelo LLM**
-O projeto está configurado para usar o modelo **Nous-Hermes-2-Mistral-7B-DPO**, mas você pode escolher outro compatível.
-- 🔗 Acesse: [https://gpt4all.io/models](https://gpt4all.io/models)
-- 📥 Baixe o modelo **Nous-Hermes-2-Mistral-7B-DPO.Q4_0.gguf**
-- 🔀 Mova o modelo para a pasta de modelos do GPT4All, normalmente localizada em:
-  - **Windows:** `C:\Users\seu_usuario\AppData\Local\nomic.ai\GPT4All`
-  - **macOS:** `~/Library/Application Support/nomic.ai/GPT4All/`
-  - **Linux:** `~/.local/share/nomic.ai/GPT4All/`
-
-> **Nota:** O caminho exato pode variar. Certifique-se de copiar corretamente o modelo para a pasta apropriada.
+<div style="text-align: center;">
+  <img src="demo.png" width="700"/>
+</div>
 
 ---
 
-## **📌 Configuração do projeto**
+## Funcionalidades
 
-### **1️⃣ Criar um arquivo `.env` com suas configurações locais**
-Crie um arquivo `.env` baseado no exemplo existente no repositório:
-```bash
-cp .env.example .env
-```
-
-✏️ **Edite o `.env` conforme necessário**, definindo:
-- O **caminho do banco de dados**
-- O **caminho do modelo GPT4All**
-
-#### **Exemplo do `.env`**
-```ini
-# Caminho do banco de dados (altere conforme necessário)
-DB_PATH=meu_banco_local.db
-
-# Caminho do modelo GPT4All (altere conforme necessário)
-MODEL_PATH=/Users/seu_usuario/Library/Application Support/nomic.ai/GPT4All/Nous-Hermes-2-Mistral-7B-DPO.Q4_0.gguf
-```
-
-No Windows:
-```powershell
-notepad .env
-```
-No Linux/macOS:
-```bash
-nano .env
-```
+- Interpretação de perguntas com modelo LLM local (`phi4-mini`)
+- Geração de queries SQL automáticas (somente leitura)
+- Interpretação amigável e responsiva dos resultados
+- Correção automática de colunas inválidas via fuzzy match
+- Interface natural com efeito de digitação
+- Sugestões contextuais baseadas na pergunta
 
 ---
 
-## **📌 Instalando as dependências**
-O projeto requer **Python 3.8 ou superior** e as bibliotecas do GPT4All e Streamlit.
+## Estrutura do projeto
 
-### **1️⃣ Criar e ativar um ambiente virtual (opcional, mas recomendado)**
-#### **Windows (PowerShell)**
-```powershell
-python -m venv venv
-venv\Scripts\Activate
-```
+```plaintext
+hubia_app/
+│
+├── core/                  # Lógica de negócio
+│   ├── database.py        # Conexão e execução SQL
+│   ├── engine.py          # Orquestra LLM + SQL + validações
+│   ├── history.py         # Histórico de interações
+│   ├── llm_agent.py       # Interação com o modelo LLM
+│   ├── prompts.py         # Geração de system prompts
+│   └── utils.py           # Funções auxiliares gerais
+│
+├── ui/                    # Interface e efeitos visuais
+│   ├── layout.py          # Estilo visual da página
+│   └── typing_effect.py   # Efeito de digitação da resposta
+│
+├── config/
+│   └── table_aliases.yaml # Descrições das tabelas
+│
+├── __init__.py
+│
+app.py                    # Interface principal Streamlit
+````
 
-#### **macOS/Linux**
+---
+
+## Requisitos
+
+* Python 3.10+
+* [Ollama](https://ollama.com/) instalado localmente com o modelo `phi4-mini`
+* [Streamlit](https://streamlit.io/)
+* SQLite
+
+---
+
+## Instalação
+
 ```bash
-python3 -m venv venv
-source venv/bin/activate
-```
+# Clone o projeto
+git clone https://github.com/ronierisonmaciel/hub-ia.git
+cd hub-ia
 
-### **2️⃣ Instalar as dependências**
-```bash
+# Crie e ative o ambiente virtual
+python -m venv .venv
+source .venv/bin/activate  # Linux/macOS
+.venv\Scripts\activate     # Windows
+
+# Instale as dependências
 pip install -r requirements.txt
 ```
 
 ---
 
-## **📌 Executando o projeto**
-Após configurar o `.env` e instalar as dependências, execute:
+## Executando
 
 ```bash
 streamlit run app.py
 ```
 
-A aplicação abrirá no seu navegador com a interface do **BDI - Banco de Dados Intelligence**.
+---
+
+## Exemplos de perguntas
+
+- Qual foi o IPCA em Recife?
+- Qual a bandeira de cartão com mais emissão?
+- Qual o volume de serviços no RN?
+- Quantas transações foram feitas com crédito?
 
 ---
 
-## **📌 Como funciona?**
-1. O usuário faz perguntas sobre o banco de dados, como:
-   ```
-   Qual foi o último valor do IPCA em Recife?
-   ```
-2. O modelo consulta o banco de dados e responde de forma clara e objetiva.
-3. As respostas são armazenadas em cache para melhorar a performance.
+## Base de dados
+
+O banco `fecomdb.db` é composto por múltiplas tabelas extraídas de dados estatísticos públicos. As descrições legíveis das tabelas estão no arquivo [`table_aliases.yaml`](hubia_app/table_aliases.yaml).
 
 ---
 
-## **📌 Segurança e Privacidade**
-✅ **O banco de dados local e o `.env` NÃO são versionados**, garantindo segurança.  
-✅ **Se você precisar de um banco de exemplo, pode disponibilizar um `.db` no repositório.**  
+## Segurança
+
+* Todas as queries são somente leitura (proibido `INSERT`, `UPDATE`, `DELETE`).
+* A identificação de colunas é validada contra `PRAGMA table_info`.
+* SQL Injection é prevenido com checagem de nomes e validação regex.
 
 ---
 
-## **📌 Contribuições**
-Sinta-se à vontade para contribuir! Para sugestões, abra uma **issue** ou envie um **pull request**.  
+## LLM e prompting
 
-Se precisar de suporte, entre em contato! 🚀
+O sistema utiliza o modelo `matilde` via Ollama, com prompts personalizados para:
+
+- Geração de SQL (usando descrições e nomes das tabelas)
+- Interpretação humanizada dos resultados
+- Adição de contexto semântico à pergunta (ex: IPCA localização)
+
+---
+
+## Limpeza de histórico
+
+Caso deseje apagar os registros anteriores:
+
+```bash
+rm hubia_history.db
+```
+
+---
+
+## Contribuindo
+
+1. Fork este repositório
+2. Crie sua branch (`git checkout -b feature/minha-funcionalidade`)
+3. Commit suas mudanças (`git commit -am 'feat: adiciona nova feature'`)
+4. Push para a branch (`git push origin feature/minha-funcionalidade`)
+5. Crie um Pull Request
+
+---
+
+## Licença
+
+Este projeto é licenciado sob os termos da [MIT License](LICENSE).
+
+---
+
+## Autores
+
+Equipe de desenvolvido:
+
+- ALBERTO SILVA
+- ARTHUR LIMA
+- CARLOS JUNIOR
+- GABRIEL VIEIRA
+- JEAN SILVA
+- JÚLIA ALBERTIM
+- JULIANA MOREIRA
+- LUANA SILVA
+- PEDRO CAMELLO
+- PEDRO SOUZA
+- VITOR GOMES
+
+> Professor/orientador - Ronierison Maciel
+---

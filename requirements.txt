@@ -1,6 +1,4 @@
-langchain
-openai
-llama-index
-streamlit 
-gpt4all
-flake8
+langchain_ollama
+langchain_community
+streamlit
+ollama
