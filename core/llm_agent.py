@@ -5,9 +5,9 @@ from typing import Any
 import logging
 from langchain_ollama import OllamaLLM
 
-from hubia_app.core.prompts import make_system_prompt, make_system_prompt_all, INTERPRET_SYSTEM_PROMPT
-from hubia_app.core.utils import strip_sql_markup
-from hubia_app.core.history import get_history, add_to_history
+from core.prompts import make_system_prompt, make_system_prompt_all, INTERPRET_SYSTEM_PROMPT
+from core.utils import strip_sql_markup
+from core.history import get_history, add_to_history
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)

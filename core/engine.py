@@ -1,7 +1,7 @@
-from hubia_app.core.llm_agent import generate_sql_with_memory, interpret
-from hubia_app.core.database import run_query
-from hubia_app.core.utils import list_tables, describe_table
-from hubia_app.core.history import get_history
+from core.llm_agent import generate_sql_with_memory, interpret
+from core.database import run_query
+from core.utils import list_tables, describe_table
+from core.history import get_history
 import re
 import logging
 from difflib import get_close_matches

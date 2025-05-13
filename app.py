@@ -1,8 +1,8 @@
 import streamlit as st
-from hubia_app.core.engine import auto_generate_and_run_query
-from hubia_app.core.history import init_history_db
-from hubia_app.ui.layout import apply_custom_styles
-from hubia_app.ui.typing_effect import render_typing_effect
+from core.engine import auto_generate_and_run_query
+from core.history import init_history_db
+from ui.layout import apply_custom_styles
+from ui.typing_effect import render_typing_effect
 
 init_history_db()
 st.set_page_config(page_title="HuB-IA", page_icon="🏦", layout="centered")

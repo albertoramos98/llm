@@ -4,7 +4,7 @@ import yaml
 from textwrap import indent
 from pathlib import Path
 
-from hubia_app.core.utils import describe_table, DB_PATH, list_tables
+from core.utils import describe_table, DB_PATH, list_tables
 
 def load_table_aliases(path="table_aliases.yaml") -> dict:
     yaml_path = Path(path)

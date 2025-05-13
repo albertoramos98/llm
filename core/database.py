@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from langchain_community.utilities import SQLDatabase
-from hubia_app.core.utils import DB_PATH, list_tables as _list_tables
+from core.utils import DB_PATH, list_tables as _list_tables
 
 _DB_URI = f"sqlite:///{DB_PATH}"
 _db_inst: SQLDatabase | None = None
