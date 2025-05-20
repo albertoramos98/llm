@@ -2,7 +2,12 @@
 import sqlite3
 from unittest.mock import patch
 from core import history
+import sys
+import os
+import pytest
 
+# Adicionar o diretório raiz ao sys.path
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 # 🧪 Testa criação da tabela de histórico
 def test_init_history_db_cria_tabela_temporaria(tmp_path):
@@ -33,8 +38,6 @@ def test_add_and_get_history(tmp_path):
 
 
 # 🧪 Testa validação de role inválido
-import pytest
-
 def test_add_to_history_role_invalido(tmp_path):
     temp_db = tmp_path / "temp_history.db"
 

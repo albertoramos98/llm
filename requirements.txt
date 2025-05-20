@@ -2,5 +2,6 @@ langchain_ollama
 langchain_community
 streamlit
 ollama
+pytest
 dotenv
 matplotlib

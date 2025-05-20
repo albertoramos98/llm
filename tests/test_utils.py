@@ -1,6 +1,7 @@
 import sqlite3
 import tempfile
 from pathlib import Path
+from core import utils
 import pytest
 import sys
 import os
@@ -46,6 +47,12 @@ def test_strip_sql_markup():
 def test_strip_sql_markup_without_code_block():
     text = "SELECT * FROM produtos;"
     assert strip_sql_markup(text) == "SELECT * FROM produtos;"
+
+def test_list_tables(test_db, monkeypatch):
+    monkeypatch.setattr("core.utils.DB_PATH", test_db)
+    utils.list_tables.cache_clear()  # limpa o cache
+    tables = utils.list_tables()
+    assert "produtos" in tables
 
 def test_list_tables(test_db, monkeypatch):
     monkeypatch.setattr("core.utils.DB_PATH", test_db)
