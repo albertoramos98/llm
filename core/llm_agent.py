@@ -62,7 +62,7 @@ def generate_sql(question: str, table: str) -> str:
     raw = _LLM.invoke(messages)
     return strip_sql_markup(raw)
 
-@lru_cache(maxsize=64)
+
 def interpret(sql: str, db_result: Any) -> str:
     resumo_prompt = (
         f"Resultado da consulta SQL: {db_result}\nQuery executada: {sql}\n\n"
