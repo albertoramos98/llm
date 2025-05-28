@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  hub-ia-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: hub-ia-app
+    ports:
+      - "8501:8501"
+    volumes:
+      - .:/app
+      - ./fecomdb.db:/app/fecomdb.db
+    depends_on:
+      - ollama
+    environment:
+      STREAMLIT_SERVER_HEADLESS: "true"
+      STREAMLIT_SERVER_PORT: "8501"
+
+  ollama:
+    image: ollama/ollama:latest
+    container_name: ollama
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama_data:/var/lib/ollama
+
+volumes:
+  ollama_data:
+    driver: local
