@@ -10,7 +10,7 @@ except ImportError:
     ResponseError = Exception  # fallback para ambientes sem Ollama
 
 # --- CONFIGURAÇÃO DE PÁGINA ---
-st.set_page_config(page_title="HuB‑IA – Assistente Inteligente para Dados Públicos da Fecomércio", layout="wide")
+st.set_page_config(page_title="HuB-IA - Assistente Inteligente para Dados Públicos da Fecomércio", layout="wide")
 
 # --- ESTILOS PERSONALIZADOS ---
 st.markdown("""
@@ -42,9 +42,6 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # --- ESTADO DA SESSÃO ---
-if "historico" not in st.session_state:
-    st.session_state.historico = []
-
 if "resposta_atual" not in st.session_state:
     st.session_state.resposta_atual = None
 
@@ -93,15 +90,6 @@ with st.sidebar:
 
     st.markdown("---")
 
-    st.subheader("🕘 Histórico")
-    if st.session_state.historico:
-        for i, item in enumerate(reversed(st.session_state.historico)):
-            if st.button(item['pergunta'], key=f"hist_{i}"):
-                st.session_state.resposta_atual = item
-    if st.button("🧹 Limpar histórico"):
-        st.session_state.historico.clear()
-        st.session_state.resposta_atual = None
-
 # --- ÁREA PRINCIPAL ---
 st.markdown('<div class="main-title">HuB‑IA – Assistente Inteligente para Dados Públicos da Fecomércio</div>', unsafe_allow_html=True)
 
@@ -137,7 +125,6 @@ if submit and pergunta.strip():
                 "pergunta": pergunta,
                 "resposta": resposta,
             }
-            st.session_state.historico.append(registro)
             st.session_state.resposta_atual = registro
 
     except ResponseError as e:

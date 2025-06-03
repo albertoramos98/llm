@@ -1,7 +1,6 @@
 from core.llm_agent import generate_sql_with_memory, interpret
 from core.database import run_query
 from core.utils import list_tables, describe_table
-from core.history import get_history
 import re
 import logging
 from difflib import get_close_matches
@@ -68,27 +67,9 @@ def is_valid_sql_structure(sql: str) -> bool:
     sql = sql.strip().lower()
     return sql.startswith("select") or sql.startswith("with")
 
-def retrieve_last_sql_context() -> tuple[str, list[dict]]:
-    history = get_history(limit=20)
-    last_sql = next((h["content"] for h in reversed(history) if h["role"] == "assistant"), None)
-    return last_sql, history
-
 def auto_generate_and_run_query(question: str):
     if is_interpretative(question):
-        last_sql, _ = retrieve_last_sql_context()
-        if last_sql:
-            try:
-                result = run_query(last_sql)
-                return {
-                    "sql": last_sql,
-                    "resultado": result,
-                    "interpretacao": interpret(last_sql, result),
-                    "tabela": "Consulta anterior reaproveitada"
-                }
-            except Exception as e:
-                raise RuntimeError(f"Erro ao recuperar contexto anterior.\n\n{e}")
-        else:
-            raise RuntimeError("Não há contexto anterior suficiente para interpretar essa pergunta.")
+        raise RuntimeError("Não há contexto anterior suficiente para interpretar essa pergunta.")
 
     sql = generate_sql_with_memory(question)
     sql = clean_query_output(sql)
