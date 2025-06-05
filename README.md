@@ -146,21 +146,7 @@ Este projeto é licenciado sob os termos da [MIT License](LICENSE).
 
 ---
 
-## Autores
+## Orientador
 
-Equipe de desenvolvido:
-
-- ALBERTO SILVA
-- ARTHUR LIMA
-- CARLOS JUNIOR
-- GABRIEL VIEIRA
-- JEAN SILVA
-- JÚLIA ALBERTIM
-- JULIANA MOREIRA
-- LUANA SILVA
-- PEDRO CAMELLO
-- PEDRO SOUZA
-- VITOR GOMES
-
-> Professor/orientador - Ronierison Maciel
+- Ronierison Maciel
 ---
