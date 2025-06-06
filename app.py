@@ -3,8 +3,7 @@ import time
 import logging
 import re
 import pandas as pd
-from rapidfuzz import process
-from core.engine import auto_generate_and_run_query
+from core.engine import consultar  # agora importar do engine diretamente
 
 try:
     from ollama._client import ResponseError
@@ -15,14 +14,10 @@ except ImportError:
 logging.basicConfig(filename="hubia_erros.log", level=logging.ERROR)
 
 # --- CONFIGURAÇÃO DE PÁGINA ---
-<<<<<<< branch-vitor-app
 st.set_page_config(
     page_title="HuB‑IA – Assistente Inteligente para Dados Públicos da Fecomércio",
     layout="wide"
 )
-=======
-st.set_page_config(page_title="HuB-IA - Assistente Inteligente para Dados Públicos da Fecomércio", layout="wide")
->>>>>>> main
 
 # --- ESTILOS ---
 st.markdown("""
@@ -36,32 +31,16 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # --- ESTADO DA SESSÃO ---
-<<<<<<< branch-vitor-app
 st.session_state.setdefault("historico", [])
 st.session_state.setdefault("resposta_atual", None)
 st.session_state.setdefault("mostrar_sobre", False)
-=======
-if "resposta_atual" not in st.session_state:
-    st.session_state.resposta_atual = None
 
-if "mostrar_sobre" not in st.session_state:
-    st.session_state.mostrar_sobre = False
->>>>>>> main
-
-# --- FUNÇÕES ---
+# --- FUNÇÕES AUXILIARES ---
 def corrigir_sql(sql: str) -> str:
     sql = re.sub(r"\'\s*-\s*(group|order|having|limit)\b", r"'\n\1", sql, flags=re.IGNORECASE)
     sql = re.sub(r"([^\s])-(group|order|having|limit)\b", r"\1 \2", sql, flags=re.IGNORECASE)
     sql = re.sub(r"\s+;", ";", sql)
     return sql
-
-def consultar(pergunta):
-    resultado = auto_generate_and_run_query(pergunta.strip())
-    sql_corrigido = corrigir_sql(resultado["sql"])
-    return resultado["interpretacao"], sql_corrigido, resultado.get("resultado", [])
-
-def is_read_only_query(sql):
-    return sql.strip().lower().startswith("select")
 
 def typing_effect(text, speed=0.01):
     placeholder = st.empty()
@@ -92,7 +71,6 @@ with st.sidebar:
         st.session_state.mostrar_sobre = not st.session_state.mostrar_sobre
 
     st.markdown("---")
-<<<<<<< branch-vitor-app
     st.subheader("🕘 Histórico")
     for i, item in enumerate(reversed(st.session_state.historico)):
         if st.button(item['pergunta'], key=f"hist_{i}"):
@@ -100,8 +78,6 @@ with st.sidebar:
     if st.button("🧹 Limpar histórico"):
         st.session_state.historico.clear()
         st.session_state.resposta_atual = None
-=======
->>>>>>> main
 
 # --- ÁREA PRINCIPAL ---
 st.markdown('<div class="main-title">HuB‑IA – Assistente Inteligente para Dados Públicos da Fecomércio</div>', unsafe_allow_html=True)
@@ -115,7 +91,7 @@ if st.session_state.mostrar_sobre:
 
     - 📈 Índice de Preços ao Consumidor Amplo (IPCA)  
     - 🛒 Pesquisa Mensal do Comércio (PMC)  
-    - 🏭 Pesquisa Mensal de Serviços (PMS)  
+    - 🏠 Pesquisa Mensal de Serviços (PMS)  
     - 💳 Transações com cartões  
 
     Desenvolvido pela **Fecomércio** para democratizar o acesso e a interpretação dos dados econômicos.
@@ -124,7 +100,7 @@ if st.session_state.mostrar_sobre:
 
 st.markdown('<div class="sub-title">O que você quer saber?</div>', unsafe_allow_html=True)
 
-# --- FORMULÁRIO COM ENTER ---
+# --- FORMULÁRIO ---
 with st.form("pergunta_form", clear_on_submit=True):
     pergunta = st.text_input("", placeholder="Qual a inflação acumulada em Recife?", label_visibility="collapsed")
     submit = st.form_submit_button("enviar")
@@ -132,19 +108,12 @@ with st.form("pergunta_form", clear_on_submit=True):
 if submit and pergunta.strip():
     try:
         resposta, sql, dados = consultar(pergunta)
-        
-        if not is_read_only_query(sql):
+
+        if not sql.strip().lower().startswith("select"):
             st.error("⚠️ Apenas comandos de leitura (SELECT) são permitidos.")
         else:
-<<<<<<< branch-vitor-app
             registro = {"pergunta": pergunta, "resposta": resposta, "dados": dados}
             st.session_state.historico.append(registro)
-=======
-            registro = {
-                "pergunta": pergunta,
-                "resposta": resposta,
-            }
->>>>>>> main
             st.session_state.resposta_atual = registro
 
     except ResponseError:
@@ -154,7 +123,7 @@ if submit and pergunta.strip():
         logging.exception(f"Erro inesperado - pergunta: {pergunta}")
         st.error("❌ Ocorreu um erro ao interpretar sua pergunta. Tente reformular.")
 
-# --- EXIBIÇÃO DA RESPOSTA ---
+# --- EXIBIÇÃO ---
 if st.session_state.resposta_atual:
     typing_effect(st.session_state.resposta_atual["resposta"])
 

@@ -1,24 +1,26 @@
-pmc_8881_RNm1: PMC - RN - Receita Nominal por Setor - Mensal,
-pmc_8881_RNm12: PMC - RN - Receita Nominal por Setor - Acumulado 12 meses,
-pmc_8881_RNAcM1: PMC - RN - Variação Mensal da Receita Nominal,
-pmc_8881_RNAcM12: PMC - RN - Variação Acumulada da Receita em 12 meses,
-pmc_8883_RNAtvM1: PMC - RN - Receita Nominal por Atividade - Mensal,
-pmc_8883_RNAtvM12: PMC - RN - Receita Nominal por Atividade - Acumulado 12 meses,
-pmc_8883_RNAtvAcM1: PMC - RN - Variação Mensal da Receita por Atividade,
-pmc_8883_RNAtvAcM12: PMC - RN - Variação Acumulada da Receita por Atividade em 12 meses,
-pms_8688_RNm1: PMS - RN - Volume de Serviços por Setor - Mensal,
-pms_8688_RNm12: PMS - RN - Volume de Serviços - Acumulado 12 meses,
-pms_8688_RNAcM1: PMS - RN - Variação Mensal do Volume de Serviços,
-pms_8688_RNAcM12: PMS - RN - Variação Acumulada do Volume de Serviços - 12 meses,
-pms_8693_RNLocm1: PMS - RN - Volume de Serviços por Localidade - Mensal,
-pms_8693_RNLocm12: PMS - RN - Volume de Serviços por Localidade - Acumulado 12 meses,
-pms_8693_RNAcLocm1: PMS - RN - Variação Mensal por Localidade,
-pms_8693_RNAcLocm12: PMS - RN - Variação Acumulada por Localidade - 12 meses,
-pnadc_4093_ocupacaoTri: PNAD Contínua - Ocupação no Brasil - Trimestral,
-pnadc_4093_desocupacaoTri: PNAD Contínua - Desocupação no Brasil - Trimestral,
-pnadc_4093_informalidadeTri: PNAD Contínua - Informalidade no Trabalho - Trimestral,
-transacaoCartao: Transações de Cartão - Volume por Bandeira e Função,
-ipca_7060_brasil: IPCA - Brasil - Índice Nacional de Preços ao Consumidor - Mensal,
-ipca_7060_recife: IPCA - Recife - Inflação Local - Mensal,
-ipca_7060_AcBrasil: IPCA - Brasil - Inflação Acumulada no Ano,
-ipca_7060_Ac12Brasil: IPCA - Brasil - Inflação Acumulada em 12 Meses
+# ----------------------------------------------------------------
+# PESQUISA MENSAL DE COMÉRCIO (PMC) - IBGE
+# ----------------------------------------------------------------
+pmc_8881_RNm1, RNm12, RNAcM1, RNAcM12: "PMC - Variação da receita nominal do comércio varejista ampliado, por localidade. Inclui atividades de Veículos, Motocicletas, partes e peças e de Material de construção."
+pmc_8883_RNAtvM1, RNAtvM12, RNAtvAcM1, RNAtvAcM12: "PMC - Variação da receita nominal do comércio varejista ampliado, por atividade e localidade. Detalha os setores do comércio."
+
+# ----------------------------------------------------------------
+# PESQUISA MENSAL DE SERVIÇOS (PMS) - IBGE
+# ----------------------------------------------------------------
+pms_8688_RNm1, RNm12, RNAcM1, RNAcM12: "PMS - Variação da receita nominal de serviços, por categoria de serviço. Abrange o setor de serviços em nível nacional."
+pms_8693_RNLocm1, RNLocm12, RNAcLocm1, RNAcLocm12: "PMS - Variação da receita nominal de serviços, por estado e categoria. Detalha o desempenho dos serviços nas Unidades da Federação."
+
+# ----------------------------------------------------------------
+# PESQUISA NACIONAL POR AMOSTRA DE DOMICÍLIOS CONTÍNUA (PNADC) - IBGE
+# ----------------------------------------------------------------
+pnadc_4093_ocupacaoTri, desocupacaoTri, informalidadeTri: "PNADC - Indicadores trimestrais do mercado de trabalho, por estado. Inclui taxas de ocupação, desocupação (desemprego) e informalidade."
+
+# ----------------------------------------------------------------
+# ÍNDICE NACIONAL DE PREÇOS AO CONSUMIDOR AMPLO (IPCA) - IBGE
+# ----------------------------------------------------------------
+ipca_7060_brasil, recife, AcBrasil, Ac12Brasil: "IPCA - Variação mensal e acumulada de preços (inflação) para o Brasil e Recife, detalhada por grupos, subgrupos e itens de consumo."
+
+# ----------------------------------------------------------------
+# TRANSAÇÕES COM CARTÃO - BANCO CENTRAL (BACEN)
+# ----------------------------------------------------------------
+transacaoCartao: "Transações com cartões de crédito, débito e pré-pago. Contém dados trimestrais sobre quantidade de cartões, número e valor de transações nacionais e internacionais, por bandeira e função (crédito/débito)."

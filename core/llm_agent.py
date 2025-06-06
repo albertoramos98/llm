@@ -10,6 +10,44 @@ from langchain_ollama import OllamaLLM
 from core.prompts import make_system_prompt, make_system_prompt_all, INTERPRET_SYSTEM_PROMPT
 from core.utils import strip_sql_markup
 
+
+from langchain.memory import ConversationBufferMemory
+
+from langchain_core.runnables import RunnableLambda
+from langchain_community.chat_models import ChatOllama  # Ou o modelo que você usa
+from langchain_core.prompts import ChatPromptTemplate
+
+# Inicializa o modelo e a memória
+llm = ChatOllama(model="llama3")  # Ajuste se necessário
+memory = ConversationBufferMemory(return_messages=True)
+
+# Cache em memória RAM
+session_cache = {}
+
+# Função principal de resposta com cache em memória
+def get_answer_with_cache(question: str) -> str:
+    if question in session_cache:
+        print("[CACHE HIT]")
+        return session_cache[question]
+
+    print("[LLM CALL]")
+    prompt = ChatPromptTemplate.from_messages([
+        ("system", "Você é um assistente útil."),
+        ("human", "{question}")
+    ])
+    chain = prompt | llm
+    answer = chain.invoke({"question": question}).content
+
+    # Armazena em memória
+    session_cache[question] = answer
+    memory.save_context({"input": question}, {"output": answer})
+
+    return answer
+
+# Opcional: expor como um RunnableLambda para uso na cadeia LangChain
+get_answer_runnable = RunnableLambda(lambda x: {"answer": get_answer_with_cache(x["question"])})
+
+
 # Configuração do logger
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)

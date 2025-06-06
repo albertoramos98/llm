@@ -111,3 +111,8 @@ def auto_generate_and_run_query(question: str):
         raise RuntimeError(
             f"Erro ao executar a query (mesmo após tentativa de correção).\n\nSQL:\n{sql}\n\nDetalhes:\n{e}"
         )
+def consultar(pergunta: str):
+    sql = generate_sql_with_memory(pergunta)
+    resultado = run_query(sql)
+    resposta = interpret(sql, resultado)
+    return resposta, sql, resultado
