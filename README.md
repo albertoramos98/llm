@@ -28,12 +28,11 @@
 ## Estrutura do projeto
 
 ```plaintext
-hubia_app/
+hub-ia/
 │
 ├── core/                  # Lógica de negócio
 │   ├── database.py        # Conexão e execução SQL
 │   ├── engine.py          # Orquestra LLM + SQL + validações
-│   ├── history.py         # Histórico de interações
 │   ├── llm_agent.py       # Interação com o modelo LLM
 │   ├── prompts.py         # Geração de system prompts
 │   └── utils.py           # Funções auxiliares gerais
@@ -45,10 +44,14 @@ hubia_app/
 ├── config/
 │   └── table_aliases.yaml # Descrições das tabelas
 │
-├── __init__.py
+├── services/              # Serviços auxiliares para execução e logging
 │
-app.py                    # Interface principal Streamlit
-````
+├── models/                # Modelos de dados ou persistência
+│
+├── app.py                 # Interface principal com Streamlit
+├── docker-compose.yml     # Ambiente dockerizado
+└── requirements.txt       # Dependências Python
+```
 
 ---
 
@@ -98,7 +101,8 @@ streamlit run app.py
 
 ## Base de dados
 
-O banco `fecomdb.db` é composto por múltiplas tabelas extraídas de dados estatísticos públicos. As descrições legíveis das tabelas estão no arquivo [`table_aliases.yaml`](hubia_app/table_aliases.yaml).
+O banco `fecomdb.db` é composto por múltiplas tabelas extraídas de dados estatísticos públicos.  
+As descrições legíveis das tabelas estão no arquivo [`config/table_aliases.yaml`](config/table_aliases.yaml).
 
 ---
 
@@ -120,17 +124,16 @@ O sistema utiliza o modelo `matilde` via Ollama, com prompts personalizados para
 
 ---
 
-## Limpeza de histórico
+## Histórico e Memória
 
-Caso deseje apagar os registros anteriores:
-
-```bash
-rm hubia_history.db
-```
+- O sistema usa cache em memória RAM com `ConversationBufferMemory`
+- O histórico não é persistido; ao reiniciar, ele é limpo
 
 ---
 
 ## Contribuindo
+
+Leia o [CONTRIBUTING.md](CONTRIBUTING.md) antes de começar. Resumo:
 
 1. Fork este repositório
 2. Crie sua branch (`git checkout -b feature/minha-funcionalidade`)
@@ -146,7 +149,6 @@ Este projeto é licenciado sob os termos da [MIT License](LICENSE).
 
 ---
 
-## Orientador
+## Responsável
 
 - Ronierison Maciel
----

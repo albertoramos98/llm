@@ -1,0 +1,7 @@
+{
+  "template": "## {{version}}\n\n{{#commits}}- {{message}} ({{author}})\n{{/commits}}",
+  "categories": [],
+  "sort": {
+    "order": "asc"
+  }
+}
